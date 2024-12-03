@@ -30,27 +30,24 @@ public class QuestionUpdateRequest implements Serializable {
      * 内容
      */
     private String content;
-
     /**
-     * 标签列表（json 数组）
+     * 判题用例（json 数组）
      */
-    private List<String> tags;
-
+    private List<JudgeCase> judgeCase;
     /**
      * 题目答案
      */
     private String answer;
 
     /**
-     * 判题用例（json 数组）
-     */
-    private String judgeCase;
-
-    /**
      * 判题配置（json 对象）
      */
-    private String judgeConfig;
-    @TableField(exist = false)
+    private JudgeConfig judgeConfig;
+    /**
+     * 标签列表
+     */
+    private List<String> tags;
+
     private static final long serialVersionUID = 1L;
 
 }

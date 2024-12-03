@@ -7,16 +7,13 @@ import lombok.Data;
  */
 @Data
 public class JudgeCase {
+
     /**
-     * 时间限制
+     * 输入用例
      */
-    private Long timeLimit;
+    private String input;
     /**
-     * 内存限制
+     * 输出用例
      */
-    private Long memoryLimit;
-    /**
-     * 栈内存限制
-     */
-    private Long stackLimit;
+    private String output;
 }

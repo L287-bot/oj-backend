@@ -8,11 +8,16 @@ import lombok.Data;
 @Data
 public class JudgeConfig {
     /**
-     * 输入用例
+     * 时间限制
      */
-    private String input;
+    private Long timeLimit;
     /**
-     * 输出用例
+     * 内存限制
      */
-    private String output;
+    private Long memoryLimit;
+    /**
+     * 栈内存限制
+     */
+    private Long stackLimit;
+
 }

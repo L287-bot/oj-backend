@@ -35,11 +35,6 @@ public class QuestionEditRequest implements Serializable {
     private String content;
 
     /**
-     * 标签列表（json 数组）
-     */
-    private List<String> tags;
-
-    /**
      * 题目答案
      */
     private String answer;
@@ -47,13 +42,17 @@ public class QuestionEditRequest implements Serializable {
     /**
      * 判题用例（json 数组）
      */
-    private String judgeCase;
+    private List<JudgeCase> judgeCase;
 
     /**
      * 判题配置（json 对象）
      */
-    private String judgeConfig;
-    @TableField(exist = false)
+    private JudgeConfig judgeConfig;
+    /**
+     * 标签列表
+     */
+    private List<String> tags;
+
     private static final long serialVersionUID = 1L;
 
 }

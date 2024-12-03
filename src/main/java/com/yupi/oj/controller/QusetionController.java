@@ -10,10 +10,8 @@ import com.yupi.oj.common.ResultUtils;
 import com.yupi.oj.constant.UserConstant;
 import com.yupi.oj.exception.BusinessException;
 import com.yupi.oj.exception.ThrowUtils;
-import com.yupi.oj.model.dto.question.QuestionAddRequest;
-import com.yupi.oj.model.dto.question.QuestionEditRequest;
-import com.yupi.oj.model.dto.question.QuestionQueryRequest;
-import com.yupi.oj.model.dto.question.QuestionUpdateRequest;
+import com.yupi.oj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
+import com.yupi.oj.model.dto.question.*;
 import com.yupi.oj.model.entity.Question;
 import com.yupi.oj.model.entity.User;
 import com.yupi.oj.model.vo.QuestionVO;
@@ -63,6 +61,14 @@ public class QusetionController {
         List<String> tags = questionAddRequest.getTags();
         if (tags != null) {
             question.setTags(JSONUtil.toJsonStr(tags));
+        }
+        List<JudgeCase> judgeCase = questionAddRequest.getJudgeCase();
+        if (judgeCase != null) {
+            question.setJudgeCase(JSONUtil.toJsonStr(judgeCase));
+        }
+        List<JudgeConfig> judgeConfig = questionAddRequest.getJudgeConfig();
+        if (judgeConfig != null) {
+            question.setJudgeConfig(JSONUtil.toJsonStr(judgeConfig));
         }
         questionService.validQuestion(question, true);
         User loginUser = userService.getLoginUser(request);
@@ -118,6 +124,14 @@ public class QusetionController {
         if (tags != null) {
             question.setTags(JSONUtil.toJsonStr(tags));
         }
+        List<JudgeCase> judgeCase = questionUpdateRequest.getJudgeCase();
+        if (judgeCase != null) {
+            question.setJudgeCase(JSONUtil.toJsonStr(judgeCase));
+        }
+        JudgeConfig judgeConfig = questionUpdateRequest.getJudgeConfig();
+        if (judgeConfig != null) {
+            question.setJudgeConfig(JSONUtil.toJsonStr(judgeConfig));
+        }
         // 参数校验
         questionService.validQuestion(question, false);
         long id = questionUpdateRequest.getId();
@@ -147,14 +161,16 @@ public class QusetionController {
     }
 
     /**
-     * 分页获取列表（仅管理员）
+     * 分页获取题目列表（仅管理员）
      *
      * @param questionQueryRequest
+     * @param request
      * @return
      */
     @PostMapping("/list/page")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
-    public BaseResponse<Page<Question>> listQuestionByPage(@RequestBody QuestionQueryRequest questionQueryRequest) {
+    public BaseResponse<Page<Question>> listQuestionByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
+                                                           HttpServletRequest request) {
         long current = questionQueryRequest.getCurrent();
         long size = questionQueryRequest.getPageSize();
         Page<Question> questionPage = questionService.page(new Page<>(current, size),
@@ -226,6 +242,14 @@ public class QusetionController {
         if (tags != null) {
             question.setTags(JSONUtil.toJsonStr(tags));
         }
+        List<JudgeCase> judgeCase = questionEditRequest.getJudgeCase();
+        if (judgeCase != null) {
+            question.setJudgeCase(JSONUtil.toJsonStr(judgeCase));
+        }
+        JudgeConfig judgeConfig = questionEditRequest.getJudgeConfig();
+        if (judgeConfig != null) {
+            question.setJudgeConfig(JSONUtil.toJsonStr(judgeConfig));
+        }
         // 参数校验
         questionService.validQuestion(question, false);
         User loginUser = userService.getLoginUser(request);
@@ -240,5 +264,6 @@ public class QusetionController {
         boolean result = questionService.updateById(question);
         return ResultUtils.success(result);
     }
+
 
 }
